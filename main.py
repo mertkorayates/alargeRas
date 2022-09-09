@@ -11,7 +11,7 @@ docName = "Devices"
 firestoreDb = firestore.client()
 writeCollection = firestoreDb.collection("Devices")
 readstream = firestoreDb.collection("Devices").stream()
-adana =""
+adana ="a"
 result = writeCollection.get()
 
 for deneme in result:
