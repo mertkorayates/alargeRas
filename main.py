@@ -7,11 +7,13 @@ from firebase_admin import db
 jsonfile = r"alarge-firebase.json"
 cred = credentials.Certificate(jsonfile)
 firebase_admin.initialize_app(cred,{'databaseURL': 'https://alarge-79fc5-default-rtdb.europe-west1.firebasedatabase.app/'})
-docName = ""
+docName = "Devices"
 firestoreDb = firestore.client()
 writeCollection = firestoreDb.collection("Devices")
 readstream = firestoreDb.collection("Devices").stream()
 
-result = writeCollection.document(docName).get()
+result = writeCollection.get()
 
-print(result)
+for deneme in result:
+    donder = deneme.to_dict()
+    print(donder)
