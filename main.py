@@ -1,19 +1,43 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-from firebase_admin import db
+import function as func
+import asyncio
+
+async def main():
+    
+    if func.wifiStateController() == "Connected":
+        print("WIFI BAGLI")
+        func.macAdressDetector()
+        func.writeFire({"Connection State " : "Baaglandı"})
+        func.hmiStart()
+    else:
+        print("WIFI BAGLI DEGIL")
+        
+    
+    if func.status and len(func.wifiConnectState) > 2:
+
+        await loop()
+
+    else:
+        if func.wifiConnectState:
+            print("ELSSEE")
+                
 
 
-jsonfile = r"alarge-firebase.json"
-cred = credentials.Certificate(jsonfile)
-firebase_admin.initialize_app(cred,{'databaseURL': 'https://alarge-79fc5-default-rtdb.europe-west1.firebasedatabase.app/'})
-docName = "Devices"
-firestoreDb = firestore.client()
-writeCollection = firestoreDb.collection("Devices")
-readstream = firestoreDb.collection("Devices").stream()
-adana ="a"
-result = writeCollection.get()
 
-for deneme in result:
-    donder = deneme.to_dict()
-    print(donder)
+
+
+
+
+async def loop():
+    while True:
+        try:
+        
+            
+            sensorVal = func.hmiDataRead()
+          
+            func.realTimeSensorAdd(sensorVal)
+            
+        except:
+            break
+
+
+asyncio.run(main())
